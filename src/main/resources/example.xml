@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<example>
+    <list name="list">
+        <test name="t1" value="1" />
+        <test name="t2" value="2" />
+        <test name="t3" value="3" />
+    </list>
+    <map name="map">
+        <property key="t1">1</property>
+        <property key="t2">2</property>
+        <property key="t3">3</property>
+    </map>
+</example>

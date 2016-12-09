@@ -25,6 +25,13 @@
             <version>3.3.6</version>
         </dependency>
 
+        <!-- xml相关解析 -->
+        <dependency>
+            <groupId>org.simpleframework</groupId>
+            <artifactId>simple-xml</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>
