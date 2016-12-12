@@ -44,6 +44,13 @@
             <version>2.9.0</version>
         </dependency>
 
+        <!--使用messagepack-->
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>0.6.9</version>
+        </dependency>
+
     </dependencies>
 
 </project>

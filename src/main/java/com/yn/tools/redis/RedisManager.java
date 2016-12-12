@@ -79,15 +79,16 @@ public class RedisManager {
     }
 
     private static List<Redis> getRedises() {
-        String host = "10.211.55.6";
+        String host = "10.211.55.7";
+        String host2 = "10.211.55.8";
         List<Redis> redises = new ArrayList<Redis>();
 
         redises.add(new Redis(host, 7000));
         redises.add(new Redis(host, 7001));
         redises.add(new Redis(host, 7002));
-        redises.add(new Redis(host, 7003));
-        redises.add(new Redis(host, 7004));
-        redises.add(new Redis(host, 7005));
+        redises.add(new Redis(host2, 7003));
+        redises.add(new Redis(host2, 7004));
+        redises.add(new Redis(host2, 7005));
 
         return redises;
     }
@@ -110,6 +111,10 @@ public class RedisManager {
 
         Data d = get("test");
         L.d("d", d);
+
+        set("wd", 2);
+        L.d("wd", get("wd"));
+        L.d("wd2", get("wd", Long.class));
 
     }
 

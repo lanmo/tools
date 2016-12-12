@@ -10,26 +10,23 @@ import io.netty.channel.ChannelHandlerContext;
  * Created by yangnan on 16/12/1.
  */
 public class TimeClientHandler extends ChannelHandlerAdapter {
-    private final ByteBuf firstMessage;
+//    private final ByteBuf firstMessage;
+    private int counter;
 
     public TimeClientHandler() {
-        byte[] req = "query time order".getBytes();
-        firstMessage = Unpooled.buffer(req.length);
-        firstMessage.writeBytes(req);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(firstMessage);
+        String req = "Hi, yangnan. Welcome to Netty.$_";
+        for (int i = 0; i< 10; i++) {
+            ctx.writeAndFlush(Unpooled.copiedBuffer(req.getBytes()));
+        }
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String body = new String(req, "UTF-8");
-        L.d("Now is:" + body);
+        System.out.println("This is : " + ++counter + " times receive server:[" + msg +"]");
     }
 
     @Override

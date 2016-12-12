@@ -63,7 +63,7 @@ public class RedisClient {
         return serialization.deserialize(jc.get(serialization.serialize(key)), new TypeReference<T>(){});
     }
 
-    private static class FastJsonSerialization implements Serialization {
+    public static class FastJsonSerialization implements Serialization {
 
         public byte[] serialize(Object data) {
             SerializeWriter out = new SerializeWriter();
