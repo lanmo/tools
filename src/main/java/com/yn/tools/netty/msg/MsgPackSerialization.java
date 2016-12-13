@@ -11,9 +11,10 @@ import java.io.IOException;
  */
 public class MsgPackSerialization implements Serialization {
 
+    private MessagePack messagePack = new MessagePack();
+
     public byte[] serialize(Object data) {
         try {
-            MessagePack messagePack = new MessagePack();
             return messagePack.write(data);
         } catch (IOException e) {
             e.printStackTrace();
@@ -22,7 +23,6 @@ public class MsgPackSerialization implements Serialization {
     }
 
     public <T> T deserialize(byte[] data, Class<T> clz) {
-        MessagePack messagePack = new MessagePack();
         try {
             return messagePack.read(data, clz);
         } catch (IOException e) {
