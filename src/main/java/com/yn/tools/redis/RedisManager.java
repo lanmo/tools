@@ -14,10 +14,14 @@ import java.util.Map;
  *  @link {'https://redis.io/topics/cluster-tutorial'}
  * 集群部署
  *  @link {'http://www.wangerbao.com/?p=532'}
+ * 集群设置密码
+ *  @link {'http://lee90.blog.51cto.com/10414478/1863243}
+ *  查看gems安装到哪了使用命令:gem environment @link {'http://hlee.iteye.com/blog/698607'}
  * 客户端使用
  *  @link {'https://github.com/xetorthio/jedis/blob/master/README.md'}
  * redis-trib-rb详解:
  *  @link {'http://weizijun.cn/2016/01/08/redis%20cluster%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7redis-trib-rb%E8%AF%A6%E8%A7%A3/'}
+ *
  */
 public class RedisManager {
 
@@ -27,7 +31,7 @@ public class RedisManager {
         if (redisClient == null) {
             synchronized (RedisClient.class) {
                 if (redisClient == null) {
-                    redisClient = new RedisClient(getRedises());
+                    redisClient = new RedisClient(getRedises(), "yangnan123");
                 }
             }
         }

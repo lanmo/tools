@@ -33,22 +33,44 @@ public class RedisClient {
 
     private static final int MAX_REDIRECTIONS = 6;
 
-    public RedisClient(List<Redis> redises) {
+    public RedisClient(List<Redis> redises, String password) {
         if (redises == null) {
             throw new NullPointerException("redises is null");
         }
 
+        Set<HostAndPort> hostAndPorts = getJedisClusterNode(redises);
+        GenericObjectPoolConfig poolConfig = getDefaultPoolConfig();
+
+        jc = new JedisCluster(hostAndPorts, CONNECTION_TIMEOUT, CONNECTION_TIMEOUT, MAX_REDIRECTIONS, password, poolConfig);
+    }
+
+    public RedisClient(List<Redis> redises, String password, int timeOut) {
+        if (redises == null) {
+            throw new NullPointerException("redises is null");
+        }
+
+        Set<HostAndPort> hostAndPorts = getJedisClusterNode(redises);
+        GenericObjectPoolConfig poolConfig = getDefaultPoolConfig();
+
+        jc = new JedisCluster(hostAndPorts, timeOut, timeOut, MAX_REDIRECTIONS, password, poolConfig);
+    }
+
+    protected Set<HostAndPort> getJedisClusterNode(List<Redis> redises) {
         Set<HostAndPort> hostAndPorts = new HashSet<HostAndPort>();
         for (Redis redis : redises) {
             hostAndPorts.add(new HostAndPort(redis.getHost(), redis.getPort()));
         }
+        return  hostAndPorts;
+    }
+
+    protected  GenericObjectPoolConfig getDefaultPoolConfig() {
 
         GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
         poolConfig.setMaxIdle(DEFAULT_MAX_IDLE);
         poolConfig.setMaxTotal(DEFAULT_MAX_TOTAL);
         poolConfig.setMinIdle(DEFAULT_MIN_IDLE);
 
-        jc = new JedisCluster(hostAndPorts, CONNECTION_TIMEOUT, CONNECTION_TIMEOUT, MAX_REDIRECTIONS, poolConfig);
+        return poolConfig;
     }
 
     public String set(String key, Object value) {
