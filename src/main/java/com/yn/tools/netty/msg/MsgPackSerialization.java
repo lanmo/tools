@@ -1,6 +1,7 @@
 package com.yn.tools.netty.msg;
 
 import com.alibaba.fastjson.TypeReference;
+import com.yn.tools.netty.rpc.exception.RpcException;
 import com.yn.tools.redis.Serialization;
 import org.msgpack.MessagePack;
 
@@ -32,6 +33,6 @@ public class MsgPackSerialization implements Serialization {
     }
 
     public <T> T deserialize(byte[] data, TypeReference<T> tTypeReference) {
-        return null;
+        throw new RpcException("unsupported");
     }
 }
