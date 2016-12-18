@@ -9,5 +9,8 @@ public class ConfigTest {
     public static void main(String[] args) {
         Example example = ConfigManager.get(Example.class);
         L.d(example);
+
+        example = ConfigManager.get(Example.class);
+        L.d(example);
     }
 }

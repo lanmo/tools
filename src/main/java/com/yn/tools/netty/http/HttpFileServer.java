@@ -20,7 +20,7 @@ import sun.applet.Main;
  */
 public class HttpFileServer {
 
-    private static final String DEFAULT_URL = "/src/main/java/com/yn/tools/";
+    private static final String DEFAULT_URL = "/src/main/java/com/yn/tools";
 
     public void run(final int port, final String url) throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -32,7 +32,7 @@ public class HttpFileServer {
                 .childHandler(new ChildChannelHandler(url));
 
             ChannelFuture future = b.bind("127.0.0.1", port).sync();
-            System.out.println("HTTP 文件目录服务器启动, 网址是 : http://127.0.0.1:" + port + "url");
+            System.out.println("HTTP 文件目录服务器启动, 网址是 : http://127.0.0.1:" + port + url);
             future.channel().closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();

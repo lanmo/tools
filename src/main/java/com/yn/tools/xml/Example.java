@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by yangnan on 2016/12/9.
  */
-@Root(name = "example")
+//@Root(name = "example")
 public class Example {
 
     @Element(name = "list", required = true)
