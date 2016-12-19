@@ -1,10 +1,8 @@
 package com.yn.tools.redis;
 
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.serializer.JSONSerializer;
-import com.alibaba.fastjson.serializer.SerializeWriter;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.yn.tools.serialize.FastJsonSerialization;
+import com.yn.tools.serialize.Serialization;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
@@ -85,25 +83,4 @@ public class RedisClient {
         return serialization.deserialize(jc.get(serialization.serialize(key)), new TypeReference<T>(){});
     }
 
-    public static class FastJsonSerialization implements Serialization {
-
-        public byte[] serialize(Object data) {
-            SerializeWriter out = new SerializeWriter();
-            JSONSerializer serializer = new JSONSerializer(out);
-            serializer.config(SerializerFeature.WriteEnumUsingToString, true);
-            serializer.config(SerializerFeature.WriteClassName, true);
-            serializer.config(SerializerFeature.DisableCircularReferenceDetect, true);
-            serializer.write(data);
-
-            return out.toBytes(null);
-        }
-
-        public <T> T deserialize(byte[] data, Class<T> clz) {
-            return JSONObject.parseObject(data, clz);
-        }
-
-        public <T> T deserialize(byte[] data, TypeReference<T> tTypeReference) {
-            return JSONObject.parseObject(new String(data), tTypeReference);
-        }
-    }
 }

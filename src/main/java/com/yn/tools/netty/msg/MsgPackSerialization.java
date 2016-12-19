@@ -1,7 +1,7 @@
 package com.yn.tools.netty.msg;
 
 import com.alibaba.fastjson.TypeReference;
-import com.yn.tools.redis.Serialization;
+import com.yn.tools.serialize.Serialization;
 import org.msgpack.MessagePack;
 
 import java.io.IOException;

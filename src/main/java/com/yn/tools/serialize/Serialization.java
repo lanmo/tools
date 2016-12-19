@@ -1,4 +1,4 @@
-package com.yn.tools.redis;
+package com.yn.tools.serialize;
 
 import com.alibaba.fastjson.TypeReference;
 
