@@ -1,15 +1,11 @@
 package com.yn.tools.test;
 
-import com.alibaba.fastjson.serializer.JSONSerializer;
-import com.alibaba.fastjson.serializer.SerializeWriter;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yn.tools.monitor.Monitor;
 import com.yn.tools.netty.msg.MsgPackSerialization;
 import com.yn.tools.netty.msg.User;
-import com.yn.tools.redis.RedisClient;
-import com.yn.tools.utils.L;
+import com.yn.tools.serialize.FastJsonSerialization;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +16,7 @@ import java.util.List;
 public class ByteTest {
     public static void main(String[] args) throws JsonProcessingException {
         MsgPackSerialization serialization = new MsgPackSerialization();
-        RedisClient.FastJsonSerialization fastJsonSerialization = new RedisClient.FastJsonSerialization();
+        FastJsonSerialization fastJsonSerialization = new FastJsonSerialization();
         ObjectMapper mapper = new ObjectMapper();
 
         List<User> users = new ArrayList<User>();
