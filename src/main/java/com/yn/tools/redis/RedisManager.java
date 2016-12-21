@@ -1,6 +1,7 @@
 package com.yn.tools.redis;
 
 import com.yn.tools.utils.L;
+import com.yn.tools.xml.ConfigManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +32,10 @@ public class RedisManager {
         if (redisClient == null) {
             synchronized (RedisClient.class) {
                 if (redisClient == null) {
-                    redisClient = new RedisClient(getRedises(), "yangnan123");
+                    Redis redis = ConfigManager.get(Redis.class);
+                    Redis redis2 = ConfigManager.get(Redis.class);
+                    System.out.println(redis == redis2);
+                    redisClient = new RedisClient(redis.getHosts(), redis.getAuth(), redis.getTimeout());
                 }
             }
         }
@@ -80,21 +84,6 @@ public class RedisManager {
         }
 
         return null;
-    }
-
-    private static List<Redis> getRedises() {
-        String host = "10.211.55.7";
-        String host2 = "10.211.55.8";
-        List<Redis> redises = new ArrayList<Redis>();
-
-        redises.add(new Redis(host, 7000));
-        redises.add(new Redis(host, 7001));
-        redises.add(new Redis(host, 7002));
-        redises.add(new Redis(host2, 7003));
-        redises.add(new Redis(host2, 7004));
-        redises.add(new Redis(host2, 7005));
-
-        return redises;
     }
 
     public static void main(String[] args) {

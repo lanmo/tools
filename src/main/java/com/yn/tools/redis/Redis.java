@@ -1,31 +1,45 @@
 package com.yn.tools.redis;
 
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
+
+import java.util.List;
+
 /**
  * Created by yangnan on 2016/12/9.
  */
 public class Redis {
 
-    private String host;
-    private int port;
+    @ElementList(entry = "host", required = true, inline = true)
+    private List<Host> hosts;
 
-    public Redis(String host, int port) {
-        this.host = host;
-        this.port = port;
+    @Attribute(name = "auth", required = true)
+    private String auth;
+
+    @Attribute(name = "timeout", required = true)
+    private int timeout;
+
+    public List<Host> getHosts() {
+        return hosts;
     }
 
-    public String getHost() {
-        return host;
+    public void setHosts(List<Host> hosts) {
+        this.hosts = hosts;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public String getAuth() {
+        return auth;
     }
 
-    public int getPort() {
-        return port;
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 }

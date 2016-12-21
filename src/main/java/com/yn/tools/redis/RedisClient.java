@@ -27,36 +27,36 @@ public class RedisClient {
 
     private static final int DEFAULT_MIN_IDLE = 10;
 
-    private static final int CONNECTION_TIMEOUT = 3000;
+    private static final int CONNECTION_TIMEOUT = 1000;
 
-    private static final int MAX_REDIRECTIONS = 6;
+    private static final int MAX_REDIRECTIONS = 3;
 
-    public RedisClient(List<Redis> redises, String password) {
-        if (redises == null) {
-            throw new NullPointerException("redises is null");
+    public RedisClient(List<Host> hosts, String password) {
+        if (hosts == null) {
+            throw new NullPointerException("hosts is null");
         }
 
-        Set<HostAndPort> hostAndPorts = getJedisClusterNode(redises);
+        Set<HostAndPort> hostAndPorts = getJedisClusterNode(hosts);
         GenericObjectPoolConfig poolConfig = getDefaultPoolConfig();
 
         jc = new JedisCluster(hostAndPorts, CONNECTION_TIMEOUT, CONNECTION_TIMEOUT, MAX_REDIRECTIONS, password, poolConfig);
     }
 
-    public RedisClient(List<Redis> redises, String password, int timeOut) {
-        if (redises == null) {
+    public RedisClient(List<Host> hosts, String password, int timeOut) {
+        if (hosts == null) {
             throw new NullPointerException("redises is null");
         }
 
-        Set<HostAndPort> hostAndPorts = getJedisClusterNode(redises);
+        Set<HostAndPort> hostAndPorts = getJedisClusterNode(hosts);
         GenericObjectPoolConfig poolConfig = getDefaultPoolConfig();
 
         jc = new JedisCluster(hostAndPorts, timeOut, timeOut, MAX_REDIRECTIONS, password, poolConfig);
     }
 
-    protected Set<HostAndPort> getJedisClusterNode(List<Redis> redises) {
+    protected Set<HostAndPort> getJedisClusterNode(List<Host> hosts) {
         Set<HostAndPort> hostAndPorts = new HashSet<HostAndPort>();
-        for (Redis redis : redises) {
-            hostAndPorts.add(new HostAndPort(redis.getHost(), redis.getPort()));
+        for (Host host : hosts) {
+            hostAndPorts.add(new HostAndPort(host.getIp(), host.getPort()));
         }
         return  hostAndPorts;
     }

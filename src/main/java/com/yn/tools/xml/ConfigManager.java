@@ -54,6 +54,12 @@ public class ConfigManager {
     }
 
     public static <T> T get(Class<T> tClass) {
+
+        Object result = configMap.get(tClass);
+        if (result != null) {
+            return (T) result;
+        }
+
         String defaultFath = null;
         try {
             defaultFath = tClass.getClassLoader().getResource("").toURI().getPath();
