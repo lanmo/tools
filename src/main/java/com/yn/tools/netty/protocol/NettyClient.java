@@ -32,8 +32,7 @@ public class NettyClient {
              .option(ChannelOption.TCP_NODELAY, true)
              .handler(new ChildChannel());
             //发起异步连接
-            ChannelFuture future = b.connect(new InetSocketAddress(host, port),
-                                             new InetSocketAddress(NettyConstant.LOCALIP, NettyConstant.LOCAL_PORT)).sync();
+            ChannelFuture future = b.connect(new InetSocketAddress(host, port)).sync();
             future.channel().closeFuture().sync();
 
         } finally {
@@ -59,11 +58,12 @@ public class NettyClient {
     private class ChildChannel extends ChannelInitializer<SocketChannel> {
 
         protected void initChannel(SocketChannel ch) throws Exception {
-            ch.pipeline().addLast(new NettyMessageDecoder(1024 * 1024, 4, 4));
+            ch.pipeline().addLast(new NettyMessageDecoder(1024 * 1024*1024, 4, 4));
             ch.pipeline().addLast("MessageEncoder", new NettyMessageEncoder());
             ch.pipeline().addLast("readTimeoutHandler", new ReadTimeoutHandler(50));
-            ch.pipeline().addLast("LoginAuthHandler", new LoginAuthReqHandler());
+//            ch.pipeline().addLast("LoginAuthHandler", new LoginAuthReqHandler());
             ch.pipeline().addLast("HeartBeatHandler", new HeartbeatReqHandler());
+
         }
     }
 }

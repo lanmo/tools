@@ -3,8 +3,6 @@ package com.yn.tools.netty.protocol;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-import java.util.TreeMap;
-
 /**
  * Created by yangnan on 16/12/19.
  */

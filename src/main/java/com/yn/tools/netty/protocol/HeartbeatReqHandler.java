@@ -2,7 +2,10 @@ package com.yn.tools.netty.protocol;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPromise;
 
+import javax.sound.midi.Soundbank;
+import java.net.SocketAddress;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +30,26 @@ public class HeartbeatReqHandler extends ChannelHandlerAdapter {
     }
 
     @Override
+    public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) throws Exception {
+        super.connect(ctx, remoteAddress, localAddress, promise);
+        System.out.println(remoteAddress + "," + localAddress);
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        NettyMessage message = new NettyMessage();
+        Header header = new Header();
+        header.setType(MessageType.HEARTBEAT_REQ.value());
+        header.setLength(12);
+        message.setHeader(header);
+        ctx.writeAndFlush(message);
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
+        cause.printStackTrace();
+
         if (heartBeat != null) {
             heartBeat.cancel(true);
             heartBeat = null;
@@ -43,7 +65,7 @@ public class HeartbeatReqHandler extends ChannelHandlerAdapter {
         }
 
         public void run() {
-            NettyMessage message = buildHeartBeat();
+            NettyMessage heartBeat = buildHeartBeat();
             System.out.println("Client send heart beat message to server : ---> " + heartBeat);
             ctx.writeAndFlush(heartBeat);
         }
