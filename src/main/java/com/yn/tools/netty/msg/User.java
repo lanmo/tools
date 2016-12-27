@@ -1,13 +1,11 @@
 package com.yn.tools.netty.msg;
 
-import org.msgpack.annotation.Message;
-
 import java.io.Serializable;
 
 /**
  * Created by yangnan on 16/12/12.
  */
-@Message
+
 public class User implements Serializable {
 
     private String userName;

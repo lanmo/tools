@@ -57,10 +57,16 @@
         </dependency>
 
         <!--使用messagepack-->
+        <!--<dependency>-->
+            <!--<groupId>org.msgpack</groupId>-->
+            <!--<artifactId>msgpack-core</artifactId>-->
+            <!--<version>0.8.8</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.msgpack</groupId>
-            <artifactId>msgpack</artifactId>
-            <version>0.6.9</version>
+            <artifactId>jackson-dataformat-msgpack</artifactId>
+            <version>0.8.8</version>
         </dependency>
 
         <dependency>

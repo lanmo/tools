@@ -1,30 +1,30 @@
-package com.yn.tools.netty.msg;
+package com.yn.tools.serialize;
 
 import com.alibaba.fastjson.TypeReference;
-import com.yn.tools.serialize.Serialization;
-import org.msgpack.MessagePack;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
 /**
- * Created by yangnan on 16/12/12.
+ * Created by yangnan on 2016/12/27.
  */
-public class MsgPackSerialization implements Serialization {
+public class JacksonSerializer implements Serialization {
 
-    private MessagePack messagePack = new MessagePack();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     public byte[] serialize(Object data) {
         try {
-            return messagePack.write(data);
-        } catch (IOException e) {
+            return objectMapper.writeValueAsBytes(data);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
     public <T> T deserialize(byte[] data, Class<T> clz) {
         try {
-            return messagePack.read(data, clz);
+            return objectMapper.readValue(data, clz);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,6 +32,6 @@ public class MsgPackSerialization implements Serialization {
     }
 
     public <T> T deserialize(byte[] data, TypeReference<T> tTypeReference) {
-        throw new RuntimeException("unsupported");
+        return null;
     }
 }
