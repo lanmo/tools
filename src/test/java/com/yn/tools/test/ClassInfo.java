@@ -1,6 +1,7 @@
 package com.yn.tools.test;
 
 import com.google.common.reflect.ClassPath;
+import com.yn.tools.utils.L;
 
 /**
  * Created by yangnan on 2016/12/23.
@@ -21,5 +22,8 @@ public class ClassInfo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        String name = ClassInfo.class.getSimpleName();
+        L.d("dd", name);
     }
 }

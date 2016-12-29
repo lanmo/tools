@@ -3,12 +3,8 @@ package com.yn.tools.xml;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import sun.applet.Main;
 
-import javax.sound.midi.Soundbank;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,8 +26,7 @@ public class ConfigManager {
                     String fileName = null;
                     Root root = tClass.getAnnotation(Root.class);
                     if (root == null) {
-                        String className = tClass.getName();
-                        fileName = className.substring(className.lastIndexOf(".") + 1);
+                        fileName = tClass.getSimpleName();
                     } else {
                         fileName = root.name();
                     }
