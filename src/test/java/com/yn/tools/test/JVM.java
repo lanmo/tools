@@ -25,7 +25,7 @@ public class JVM {
         return i;
     }
 }
- 
+
 class User {
     private final int age;
     private final long a;
